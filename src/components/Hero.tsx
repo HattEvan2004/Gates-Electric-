@@ -31,7 +31,7 @@ export default function Hero() {
           </div>
 
           <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight text-white mb-6 leading-tight">
-            {headline.split(/(Electrical Services)/).map((part, i) => part === 'Electrical Services' ? <span key={i} className="text-brand-red text-transparent bg-clip-text bg-gradient-to-r from-red-500 to-red-600">{part}</span> : part)}
+            {headline.split(/(Electrical Services)/).map((part, i) => part === 'Electrical Services' ? <span key={i} className="glow-red text-brand-red text-transparent bg-clip-text bg-gradient-to-r from-red-500 to-red-600">{part}</span> : part)}
           </h1>
           
           <p className="mt-4 max-w-2xl text-lg sm:text-xl text-slate-300 mb-10 leading-relaxed font-light">
