@@ -1,6 +1,8 @@
 import React from 'react';
+import { useSiteContent } from '../sanity/useSiteContent';
 
 export default function Footer() {
+  const site = useSiteContent();
   return (
     <footer className="bg-slate-900 border-t border-slate-800 py-12">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -32,17 +34,16 @@ export default function Footer() {
             <ul className="space-y-4">
               <li>
                 <a href="tel:9022770458" className="hover:text-white transition-colors block">
-                  (902) 277-0458
+                  {site?.phone || '(902) 277-0458'}
                 </a>
               </li>
               <li>
                 <a href="mailto:kyledgates@hotmail.com" className="hover:text-white transition-colors block">
-                  kyledgates@hotmail.com
+                  {site?.email || 'kyledgates@hotmail.com'}
                 </a>
               </li>
               <li className="pt-2">
-                436 Highway 14<br />
-                Chester, NS B0J 1J0
+                {(site?.address || '436 Highway 14\nChester, NS B0J 1J0').split('\n').map((line, i) => <React.Fragment key={i}>{i > 0 && <br />}{line}</React.Fragment>)}
               </li>
             </ul>
           </div>
@@ -51,7 +52,7 @@ export default function Footer() {
 
         <div className="pt-8 border-t border-slate-800 mt-12 flex flex-col md:flex-row justify-between items-center text-sm">
           <p>&copy; {new Date().getFullYear()} Gates Electric Ltd. All rights reserved.</p>
-          <p className="mt-4 md:mt-0 text-slate-500">Serving Chester & the South Shore</p>
+          <p className="mt-4 md:mt-0 text-slate-500">{site?.serviceArea || 'Serving Chester & the South Shore'}</p>
         </div>
       </div>
     </footer>

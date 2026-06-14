@@ -1,7 +1,10 @@
 import React from 'react';
 import { ArrowRight, Phone } from 'lucide-react';
+import { useSiteContent } from '../sanity/useSiteContent';
 
 export default function Hero() {
+  const site = useSiteContent();
+  const headline = site?.heroHeadline || 'Reliable Residential & Commercial Electrical Services in Chester, Nova Scotia';
   return (
     <div className="relative bg-brand-dark overflow-hidden">
       {/* Background Graphic Pattern overlay */}
@@ -23,15 +26,15 @@ export default function Hero() {
           
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-red/10 border border-brand-red/20 text-red-400 font-medium text-sm mb-6">
              <span className="w-2 h-2 rounded-full bg-brand-red animate-pulse"></span>
-             Serving the South Shore
+             {site?.heroBadge || 'Serving the South Shore'}
           </div>
 
           <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight text-white mb-6 leading-tight">
-            Reliable Residential & Commercial <span className="text-brand-red text-transparent bg-clip-text bg-gradient-to-r from-red-500 to-red-600">Electrical Services</span> in Chester, Nova Scotia
+            {headline.split(/(Electrical Services)/).map((part, i) => part === 'Electrical Services' ? <span key={i} className="text-brand-red text-transparent bg-clip-text bg-gradient-to-r from-red-500 to-red-600">{part}</span> : part)}
           </h1>
           
           <p className="mt-4 max-w-2xl text-lg sm:text-xl text-slate-300 mb-10 leading-relaxed font-light">
-            Gates Electric Ltd. provides professional electrical services for homes, businesses, renovations, upgrades, new builds, and more across the South Shore and surrounding areas.
+            {site?.heroSubtitle || 'Gates Electric Ltd. provides professional electrical services for homes, businesses, renovations, upgrades, new builds, and more across the South Shore and surrounding areas.'}
           </p>
           
           <div className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto">

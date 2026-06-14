@@ -1,7 +1,9 @@
 import React from 'react';
 import { Mail, Phone, MapPin, Clock } from 'lucide-react';
+import { useSiteContent } from '../sanity/useSiteContent';
 
 export default function Contact() {
+  const site = useSiteContent();
   return (
     <section id="contact" className="py-24 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -10,9 +12,9 @@ export default function Contact() {
           
           {/* Left Column - Contact Info */}
           <div className="w-full lg:w-5/12">
-            <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-6">Need Electrical Work Done? Get a Free Quote Today.</h2>
+            <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-6">{site?.contactHeading || 'Need Electrical Work Done? Get a Free Quote Today.'}</h2>
             <p className="text-lg text-slate-600 mb-10 leading-relaxed">
-              Contact us to discuss your residential or commercial electrical needs. We're ready to provide expert advice and reliable service.
+              {site?.contactSubtitle || "Contact us to discuss your residential or commercial electrical needs. We\u2019re ready to provide expert advice and reliable service."}
             </p>
 
             <div className="space-y-8">
@@ -23,7 +25,7 @@ export default function Contact() {
                 </div>
                 <div>
                   <h4 className="text-sm font-semibold text-slate-500 uppercase tracking-wider mb-1">Phone</h4>
-                  <a href="tel:9022770458" className="text-xl font-bold text-slate-900 hover:text-brand-red transition-colors">(902) 277-0458</a>
+                  <a href="tel:9022770458" className="text-xl font-bold text-slate-900 hover:text-brand-red transition-colors">{site?.phone || '(902) 277-0458'}</a>
                 </div>
               </div>
 
@@ -33,7 +35,7 @@ export default function Contact() {
                 </div>
                 <div>
                   <h4 className="text-sm font-semibold text-slate-500 uppercase tracking-wider mb-1">Email</h4>
-                  <a href="mailto:kyledgates@hotmail.com" className="text-lg font-bold text-slate-900 hover:text-brand-red transition-colors truncate block max-w-[250px] sm:max-w-none">kyledgates@hotmail.com</a>
+                  <a href="mailto:kyledgates@hotmail.com" className="text-lg font-bold text-slate-900 hover:text-brand-red transition-colors truncate block max-w-[250px] sm:max-w-none">{site?.email || 'kyledgates@hotmail.com'}</a>
                 </div>
               </div>
 
@@ -44,8 +46,7 @@ export default function Contact() {
                 <div>
                   <h4 className="text-sm font-semibold text-slate-500 uppercase tracking-wider mb-1">Location</h4>
                   <p className="text-lg font-medium text-slate-900 leading-tight">
-                    436 Highway 14<br />
-                    Chester, NS B0J 1J0
+                    {(site?.address || '436 Highway 14\nChester, NS B0J 1J0').split('\n').map((line, i) => <React.Fragment key={i}>{i > 0 && <br />}{line}</React.Fragment>)}
                   </p>
                 </div>
               </div>
@@ -57,7 +58,7 @@ export default function Contact() {
                 <div>
                   <h4 className="text-sm font-semibold text-slate-500 uppercase tracking-wider mb-1">Hours</h4>
                   <p className="text-lg font-medium text-slate-900">
-                    Monday to Friday, 8am–5pm<br />
+                    {(site?.hours || 'Monday to Friday, 8am\u20135pm').split('\n')[0]}<br />
                     <span className="text-slate-500 text-sm font-normal">Saturday &amp; Sunday Closed</span>
                   </p>
                 </div>
