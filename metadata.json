@@ -1,0 +1,6 @@
+{
+  "name": "Gates Electric",
+  "description": "Professional website for Gates Electric Ltd., an electrical contractor based in Chester, Nova Scotia.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
