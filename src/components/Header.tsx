@@ -18,7 +18,7 @@ export default function Header() {
                 <img 
                   src="/logo.png" 
                   alt="Gates Electric Ltd. Logo" 
-                  className="h-16 w-auto object-contain"
+                  className="h-24 w-auto object-contain"
                   onError={() => setImageError(true)}
                 />
               ) : (
