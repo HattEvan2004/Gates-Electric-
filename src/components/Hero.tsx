@@ -22,7 +22,8 @@ export default function Hero() {
       </div>
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="pt-20 pb-24 md:pt-32 md:pb-40 flex flex-col items-center text-center lg:items-start lg:text-left lg:w-2/3">
+        <div className="pt-20 pb-24 md:pt-32 md:pb-40 flex flex-col lg:flex-row lg:items-center lg:gap-12">
+        <div className="flex flex-col items-center text-center lg:items-start lg:text-left lg:w-1/2">
           
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-red/10 border border-brand-red/20 text-red-400 font-medium text-sm mb-6">
              <span className="w-2 h-2 rounded-full bg-brand-red animate-pulse"></span>
@@ -54,6 +55,12 @@ export default function Hero() {
               Call (902) 277-0458
             </a>
           </div>
+
+        </div>
+
+        <div className="w-full mt-12 lg:mt-0 lg:w-1/2 flex justify-center">
+          <img src="/hero.png" alt="Gates Electric electrical work" className="w-full max-w-md rounded-2xl border border-white/10 shadow-2xl object-cover" />
+        </div>
 
         </div>
       </div>
