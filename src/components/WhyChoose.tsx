@@ -21,14 +21,7 @@ export default function WhyChoose() {
           {/* Left Column - Graphic/Pattern */}
           <div className="w-full lg:w-1/2">
             <div className="relative rounded-2xl bg-brand-dark overflow-hidden aspect-square sm:aspect-[4/3] lg:aspect-auto lg:h-[500px] shadow-2xl flex items-center justify-center">
-              {/* Fallback graphic since we don't have a lifestyle photo */}
-              <div className="absolute inset-0 opacity-30 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-slate-500 via-brand-dark to-brand-dark"></div>
-              
-               <div className="relative z-10 flex flex-col items-center p-8 text-center border border-white/10 rounded-xl bg-white/5 backdrop-blur-sm">
-                  <span className="text-6xl text-brand-red mb-4">💡</span>
-                  <h3 className="text-2xl font-bold text-white mb-2 font-serif tracking-widest">GATES ELECTRIC</h3>
-                  <p className="text-slate-300 max-w-xs">Dependable, high-quality contracting.</p>
-               </div>
+              <img src="/hero.png" alt="Gates Electric team" className="absolute inset-0 w-full h-full object-cover object-center" />
             </div>
           </div>
 
