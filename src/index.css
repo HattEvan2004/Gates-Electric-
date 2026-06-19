@@ -1,70 +1,54 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:ital,wght@0,500;0,600;0,700;0,800;1,600&display=swap');
 @import "tailwindcss";
 
 @theme {
   --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
   --font-display: "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
-
   --color-brand-red: #dc2626;
   --color-brand-red-hover: #b91c1c;
-  --color-brand-dark: #0f172a;
+  --color-brand-dark: #0a0a0f;
 }
 
-html {
-  scroll-behavior: smooth;
-}
+html { scroll-behavior: smooth; }
 
 body {
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background: #ffffff;
 }
 
-/* ── Hero slideshow Ken Burns ────────────────────────── */
-@keyframes kenburns-1 {
-  0%   { transform: scale(1)   translate(0, 0); }
-  100% { transform: scale(1.15) translate(-2%, -1%); }
+/* ── Electric glow on headline ─────────────── */
+@keyframes glow-pulse {
+  0%, 100% { text-shadow: 0 0 20px rgba(220,38,38,.25), 0 0 60px rgba(220,38,38,.08); }
+  50%      { text-shadow: 0 0 30px rgba(220,38,38,.45), 0 0 80px rgba(220,38,38,.15); }
 }
-@keyframes kenburns-2 {
-  0%   { transform: scale(1.05) translate(1%, 0); }
-  100% { transform: scale(1.2)  translate(-1%, -2%); }
-}
-@keyframes kenburns-3 {
-  0%   { transform: scale(1)   translate(-1%, 1%); }
-  100% { transform: scale(1.18) translate(2%, -1%); }
-}
+.glow-red { animation: glow-pulse 4s ease-in-out infinite; }
 
-.slide-active   { opacity: 1; }
-.slide-inactive { opacity: 0; }
-
-.slide-kb-1 { animation: kenburns-1 8s ease-out forwards; }
-.slide-kb-2 { animation: kenburns-2 8s ease-out forwards; }
-.slide-kb-3 { animation: kenburns-3 8s ease-out forwards; }
-
-/* ── Glow effect for red accent text ─────────────────── */
-@keyframes glow-red {
-  0%, 100% { text-shadow: 0 0 20px rgba(220,38,38,.3); }
-  50%      { text-shadow: 0 0 40px rgba(220,38,38,.6), 0 0 10px rgba(220,38,38,.3); }
+/* ── Scroll indicator ──────────────────────── */
+@keyframes float-down {
+  0%, 100% { transform: translateY(0); opacity:.6; }
+  50%      { transform: translateY(10px); opacity:1; }
 }
-.glow-red { animation: glow-red 3s ease-in-out infinite; }
+.scroll-indicator { animation: float-down 2.5s ease-in-out infinite; }
 
-/* ── Scroll indicator bounce ─────────────────────────── */
-@keyframes scroll-bounce {
-  0%, 100% { transform: translateY(0); }
-  50%      { transform: translateY(8px); }
+/* ── Page transitions ──────────────────────── */
+@keyframes fade-up {
+  from { opacity:0; transform: translateY(24px); }
+  to   { opacity:1; transform: translateY(0); }
 }
-.scroll-indicator { animation: scroll-bounce 2s ease-in-out infinite; }
+.animate-fade-up { animation: fade-up .6s ease-out both; }
 
-/* ── Pulse ring on CTA ───────────────────────────────── */
-@keyframes pulse-ring {
-  0%   { transform: scale(1);   opacity: .6; }
-  100% { transform: scale(1.5); opacity: 0; }
-}
-.pulse-ring::before {
+/* ── Service row hover accent ──────────────── */
+.service-row { position: relative; }
+.service-row::before {
   content: "";
   position: absolute;
-  inset: -4px;
-  border-radius: inherit;
-  border: 2px solid var(--color-brand-red);
-  animation: pulse-ring 2s ease-out infinite;
+  left: 0; top: 0; bottom: 0;
+  width: 3px;
+  background: var(--color-brand-red);
+  border-radius: 2px;
+  transform: scaleY(0);
+  transition: transform .3s ease;
 }
+.service-row:hover::before { transform: scaleY(1); }

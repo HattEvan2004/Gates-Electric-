@@ -1,29 +1,26 @@
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Header from './components/Header';
-import Hero from './components/Hero';
-import Trust from './components/Trust';
-import Services from './components/Services';
-import Gallery from './components/Gallery';
-import WhyChoose from './components/WhyChoose';
-import About from './components/About';
-import Contact from './components/Contact';
 import Footer from './components/Footer';
+import Home from './pages/Home';
+import ServicesPage from './pages/ServicesPage';
+import AboutPage from './pages/AboutPage';
+import ContactPage from './pages/ContactPage';
 
 export default function App() {
   return (
-    <div className="min-h-screen flex flex-col font-sans">
-      <Header />
-
-      <main className="flex-grow">
-        <Hero />
-        <Trust />
-        <Services />
-        <Gallery />
-        <WhyChoose />
-        <About />
-        <Contact />
-      </main>
-
-      <Footer />
-    </div>
+    <BrowserRouter>
+      <div className="min-h-screen flex flex-col font-sans">
+        <Header />
+        <main className="flex-grow">
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/services" element={<ServicesPage />} />
+            <Route path="/about" element={<AboutPage />} />
+            <Route path="/contact" element={<ContactPage />} />
+          </Routes>
+        </main>
+        <Footer />
+      </div>
+    </BrowserRouter>
   );
 }
