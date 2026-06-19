@@ -8,7 +8,6 @@ const nav: NavItem[] = [
   { label: 'Home', to: '/' },
   { label: 'Services', to: '/services' },
   { label: 'About', to: '/about' },
-  { label: 'Projects', hash: 'projects' },
   { label: 'Reviews', hash: 'reviews' },
   { label: 'Contact', to: '/contact' },
 ];
