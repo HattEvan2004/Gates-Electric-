@@ -52,3 +52,13 @@ body {
   transition: transform .3s ease;
 }
 .service-row:hover::before { transform: scaleY(1); }
+
+/* ── Circuit node pulse (services page) ──── */
+@keyframes node-pulse {
+  0%, 100% { box-shadow: 0 0 8px rgba(220,38,38,.4); }
+  50%      { box-shadow: 0 0 18px rgba(220,38,38,.65), 0 0 4px rgba(220,38,38,.3); }
+}
+.circuit-node-pulse { animation: node-pulse 3s ease-in-out infinite; }
+.group:hover .circuit-node-pulse {
+  box-shadow: 0 0 24px rgba(220,38,38,.8), 0 0 8px rgba(220,38,38,.5);
+}
