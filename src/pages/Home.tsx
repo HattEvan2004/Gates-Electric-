@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { ArrowRight, ChevronDown, Shield, MapPin, Zap, ThumbsUp } from 'lucide-react';
+import { ArrowRight, ChevronDown, Shield, MapPin, Zap, ThumbsUp, Star } from 'lucide-react';
 import { motion } from 'motion/react';
 import ElectricHero from '../components/ElectricHero';
 
@@ -16,43 +16,84 @@ const photos = [
   { src: '/gallery-3.jpg', alt: 'Gates Electric team' },
 ];
 
+const reviews = [
+  {
+    quote:
+      'They rewired our older Chester home during a full reno and explained every step. Clean work, on schedule, and the inspection passed first time.',
+    name: 'Sarah M.',
+    location: 'Chester, NS',
+  },
+  {
+    quote:
+      'Gates handled the panel upgrade and lighting for our storefront. Tidy, professional, and they worked around our hours so we never had to close.',
+    name: 'Dave R.',
+    location: 'Mahone Bay, NS',
+  },
+  {
+    quote:
+      'Quick to quote, fair pricing, and they wired my new workshop exactly how I wanted it. Easily the best electrician we have used on the shore.',
+    name: 'Karen L.',
+    location: 'Hubbards, NS',
+  },
+];
+
 export default function Home() {
   return (
     <>
       {/* ═══ HERO ═══ */}
       <ElectricHero full>
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24">
+        <div className="max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 pt-24">
           <div className="max-w-3xl">
-            <div className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-white/[.06] border border-white/10 text-white/80 text-sm font-medium mb-8">
-              <span className="w-2 h-2 rounded-full bg-brand-red animate-pulse" />
-              Serving Chester &amp; the South Shore
-            </div>
+            <motion.p
+              initial={{ opacity: 0, y: 14 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.15 }}
+              className="flex items-center gap-3 text-brand-red font-semibold tracking-[.22em] uppercase text-[11px] sm:text-xs mb-6"
+            >
+              <span className="w-8 h-px bg-brand-red/70" />
+              Residential &amp; Commercial Electrical Services
+            </motion.p>
 
-            <h1 className="font-display text-[clamp(2.5rem,6vw,5rem)] font-extrabold leading-[1.05] tracking-tight text-white mb-6">
-              Reliable Residential &amp;&nbsp;Commercial{' '}
-              <span className="glow-red text-brand-red">Electrical Services</span>
-            </h1>
+            <motion.h1
+              initial={{ opacity: 0, y: 22 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.7, delay: 0.3 }}
+              className="font-display text-[clamp(2.4rem,6vw,5rem)] font-extrabold leading-[1.04] tracking-tight text-white mb-7"
+            >
+              Powering Chester Homes &amp; Businesses With{' '}
+              <span className="text-brand-red">Precision.</span>
+            </motion.h1>
 
-            <p className="text-lg sm:text-xl text-white/60 max-w-xl mb-10 leading-relaxed font-light">
-              Professional electrical work for homes, businesses, renovations,
-              and new builds across Nova Scotia's South Shore.
-            </p>
+            <motion.p
+              initial={{ opacity: 0, y: 18 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.7, delay: 0.45 }}
+              className="text-lg sm:text-xl text-slate-400 max-w-xl mb-10 leading-relaxed font-light"
+            >
+              Gates Electric provides reliable residential and commercial
+              electrical work built on safety, quality, and trust.
+            </motion.p>
 
-            <div className="flex flex-col sm:flex-row gap-4">
+            <motion.div
+              initial={{ opacity: 0, y: 18 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.7, delay: 0.6 }}
+              className="flex flex-col sm:flex-row gap-4"
+            >
               <Link
                 to="/contact"
                 className="group inline-flex justify-center items-center gap-3 bg-brand-red hover:bg-brand-red-hover text-white px-9 py-4 rounded-lg font-bold text-lg transition-all shadow-2xl shadow-red-600/25 hover:shadow-red-600/40"
               >
-                Get a Free Quote
+                Request a Quote
                 <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />
               </Link>
-              <a
-                href="tel:9022770458"
-                className="inline-flex justify-center items-center gap-3 bg-white/[.07] hover:bg-white/[.14] text-white border border-white/15 px-9 py-4 rounded-lg font-semibold text-lg transition-all backdrop-blur-sm"
+              <Link
+                to="/services"
+                className="inline-flex justify-center items-center gap-3 bg-white/[.06] hover:bg-white/[.12] text-white border border-white/15 px-9 py-4 rounded-lg font-semibold text-lg transition-all backdrop-blur-sm"
               >
-                Call (902) 277-0458
-              </a>
-            </div>
+                View Services
+              </Link>
+            </motion.div>
           </div>
         </div>
         {/* Scroll hint */}
@@ -139,8 +180,8 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ═══ PHOTO GALLERY ═══ */}
-      <section className="py-28 bg-slate-50">
+      {/* ═══ PHOTO GALLERY / PROJECTS ═══ */}
+      <section id="projects" className="py-28 bg-slate-50 scroll-mt-24">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 24 }}
@@ -148,7 +189,7 @@ export default function Home() {
             viewport={{ once: true }}
             className="text-center mb-14"
           >
-            <p className="text-brand-red font-semibold tracking-[.15em] uppercase text-xs mb-3">Our Work</p>
+            <p className="text-brand-red font-semibold tracking-[.15em] uppercase text-xs mb-3">Recent Projects</p>
             <h2 className="font-display text-3xl md:text-5xl font-extrabold text-slate-900">On the Job</h2>
           </motion.div>
 
@@ -165,6 +206,45 @@ export default function Home() {
                 <img src={p.src} alt={p.alt} className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
               </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ═══ REVIEWS ═══ */}
+      <section id="reviews" className="py-28 bg-white scroll-mt-24">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          <motion.div
+            initial={{ opacity: 0, y: 24 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-center mb-14"
+          >
+            <p className="text-brand-red font-semibold tracking-[.15em] uppercase text-xs mb-3">What People Say</p>
+            <h2 className="font-display text-3xl md:text-5xl font-extrabold text-slate-900">Trusted Across the South Shore</h2>
+          </motion.div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {reviews.map((r, i) => (
+              <motion.figure
+                key={r.name}
+                initial={{ opacity: 0, y: 24 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: i * 0.1 }}
+                className="flex flex-col h-full rounded-2xl border border-slate-100 bg-slate-50/60 p-8 shadow-sm"
+              >
+                <div className="flex gap-1 mb-5 text-brand-red">
+                  {Array.from({ length: 5 }).map((_, s) => (
+                    <Star key={s} className="w-4 h-4 fill-current" />
+                  ))}
+                </div>
+                <blockquote className="text-slate-700 leading-relaxed flex-grow">{r.quote}</blockquote>
+                <figcaption className="mt-6 pt-5 border-t border-slate-200">
+                  <p className="font-display font-bold text-slate-900">{r.name}</p>
+                  <p className="text-sm text-slate-500">{r.location}</p>
+                </figcaption>
+              </motion.figure>
             ))}
           </div>
         </div>
