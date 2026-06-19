@@ -199,13 +199,14 @@ export default function ElectricHero({ full = true, children }: Props) {
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
 
       // fit design box into the lower portion of the hero
-      const margin = w < 640 ? 0.99 : 0.94;
+      const isPhone = w < 640;
+      const margin = isPhone ? 1.02 : 0.94;
       let scale = (w * margin) / DBW;
-      const maxH = h * (full ? 0.62 : 0.92);
+      const maxH = h * (full ? (isPhone ? 0.32 : 0.62) : 0.92);
       if (DBH * scale > maxH) scale = maxH / DBH;
       const drawW = DBW * scale;
       const originX = (w - drawW) / 2;
-      const groundY = full ? h * 0.9 : h * 0.96;
+      const groundY = full ? (isPhone ? h * 0.99 : h * 0.9) : h * 0.96;
       const originY = groundY - GROUND * scale;
 
       const tx = (p: Pt): Pt => ({ x: originX + p.x * scale, y: originY + p.y * scale });

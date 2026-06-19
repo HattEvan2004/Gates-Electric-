@@ -42,7 +42,7 @@ export default function Home() {
     <>
       {/* ═══ HERO ═══ */}
       <ElectricHero full>
-        <div className="max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 pt-24">
+        <div className="max-w-7xl mx-auto w-full px-5 sm:px-6 lg:px-8 pt-28 sm:pt-24 pb-44 sm:pb-0">
           <div className="max-w-3xl">
             <motion.p
               initial={{ opacity: 0, y: 14 }}
