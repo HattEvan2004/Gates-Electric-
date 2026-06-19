@@ -42,13 +42,13 @@ export default function Home() {
     <>
       {/* ═══ HERO ═══ */}
       <ElectricHero full>
-        <div className="max-w-7xl mx-auto w-full px-5 sm:px-6 lg:px-8 pt-28 sm:pt-24 pb-44 sm:pb-0">
+        <div className="max-w-7xl mx-auto w-full px-5 sm:px-6 lg:px-8 pt-28 sm:pt-24 pb-12 sm:pb-0">
           <div className="max-w-3xl">
             <motion.p
               initial={{ opacity: 0, y: 14 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.15 }}
-              className="flex items-center gap-3 text-brand-red font-semibold tracking-[.22em] uppercase text-[11px] sm:text-xs mb-6"
+              className="flex items-center gap-3 text-brand-red font-semibold tracking-[.2em] uppercase text-[11px] sm:text-xs mb-5 sm:mb-6"
             >
               <span className="w-8 h-px bg-brand-red/70" />
               Residential &amp; Commercial Electrical Services
@@ -58,7 +58,7 @@ export default function Home() {
               initial={{ opacity: 0, y: 22 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, delay: 0.3 }}
-              className="font-display text-[clamp(2.4rem,6vw,5rem)] font-extrabold leading-[1.04] tracking-tight text-white mb-7"
+              className="font-display text-[clamp(2.05rem,7vw,5rem)] font-extrabold leading-[1.05] tracking-tight text-white mb-5 sm:mb-7"
             >
               Powering Chester Homes &amp; Businesses With{' '}
               <span className="text-brand-red">Precision.</span>
@@ -68,7 +68,7 @@ export default function Home() {
               initial={{ opacity: 0, y: 18 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, delay: 0.45 }}
-              className="text-lg sm:text-xl text-slate-400 max-w-xl mb-10 leading-relaxed font-light"
+              className="text-base sm:text-xl text-slate-400 max-w-xl mb-8 sm:mb-10 leading-relaxed font-light"
             >
               Gates Electric provides reliable residential and commercial
               electrical work built on safety, quality, and trust.
@@ -78,18 +78,18 @@ export default function Home() {
               initial={{ opacity: 0, y: 18 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, delay: 0.6 }}
-              className="flex flex-col sm:flex-row gap-4"
+              className="flex flex-col sm:flex-row gap-3.5 sm:gap-4"
             >
               <Link
                 to="/contact"
-                className="group inline-flex justify-center items-center gap-3 bg-brand-red hover:bg-brand-red-hover text-white px-9 py-4 rounded-lg font-bold text-lg transition-all shadow-2xl shadow-red-600/25 hover:shadow-red-600/40"
+                className="group inline-flex w-full sm:w-auto justify-center items-center gap-3 bg-brand-red hover:bg-brand-red-hover text-white px-8 py-4 rounded-xl font-bold text-lg transition-all shadow-2xl shadow-red-600/25 hover:shadow-red-600/40"
               >
                 Request a Quote
                 <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />
               </Link>
               <Link
                 to="/services"
-                className="inline-flex justify-center items-center gap-3 bg-white/[.06] hover:bg-white/[.12] text-white border border-white/15 px-9 py-4 rounded-lg font-semibold text-lg transition-all backdrop-blur-sm"
+                className="inline-flex w-full sm:w-auto justify-center items-center gap-3 bg-white/[.07] hover:bg-white/[.14] text-white border border-white/15 px-8 py-4 rounded-xl font-semibold text-lg transition-all backdrop-blur-md"
               >
                 View Services
               </Link>
