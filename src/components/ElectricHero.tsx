@@ -203,11 +203,11 @@ export default function ElectricHero({ full = true, children }: Props) {
       const isTablet = w >= 768 && w < 1024;
       const margin = isPhone ? 1.0 : 0.94;
       let scale = (w * margin) / DBW;
-      const maxH = h * (full ? (isPhone ? 0.46 : isTablet ? 0.5 : 0.62) : 0.92);
+      const maxH = h * (full ? (isPhone ? 1 : isTablet ? 0.5 : 0.62) : 0.92);
       if (DBH * scale > maxH) scale = maxH / DBH;
       const drawW = DBW * scale;
       const originX = (w - drawW) / 2;
-      const groundY = full ? (isPhone ? h * 0.87 : h * 0.9) : h * 0.96;
+      const groundY = full ? (isPhone ? h - 104 : h * 0.9) : h * 0.96;
       const originY = groundY - GROUND * scale;
 
       const tx = (p: Pt): Pt => ({ x: originX + p.x * scale, y: originY + p.y * scale });
@@ -412,7 +412,7 @@ export default function ElectricHero({ full = true, children }: Props) {
   return (
     <section
       ref={wrapRef}
-      className={`relative overflow-hidden bg-[#0a0a0d] ${full ? 'h-[100svh] min-h-[640px]' : 'h-[46vh] min-h-[340px]'}`}
+      className={`relative overflow-hidden bg-[#0a0a0d] ${full ? 'h-auto md:h-[100svh] md:min-h-[640px]' : 'h-[46vh] min-h-[340px]'}`}
     >
       {/* charcoal base + subtle red ambience */}
       <div className="absolute inset-0 bg-gradient-to-b from-[#0c0d12] via-[#0a0a0d] to-[#070708]" />
@@ -433,11 +433,11 @@ export default function ElectricHero({ full = true, children }: Props) {
       <div className="absolute bottom-0 left-0 right-0 h-40 bg-gradient-to-t from-[#070708] to-transparent pointer-events-none hidden md:block" />
       <div
         className="absolute inset-0 pointer-events-none md:hidden"
-        style={{ background: 'linear-gradient(to bottom, #0a0a0d 0%, #0a0a0d 34%, rgba(10,10,13,0.55) 48%, rgba(10,10,13,0.15) 62%, transparent 80%, rgba(7,7,8,0.6) 95%, #070708 100%)' }}
+        style={{ background: 'linear-gradient(to bottom, transparent 0%, transparent 86%, rgba(7,7,8,0.6) 93%, #070708 100%)' }}
       />
 
       {children && (
-        <div className="relative z-10 h-full flex flex-col justify-start md:justify-center">
+        <div className="relative z-10 flex flex-col md:h-full justify-start md:justify-center">
           {children}
         </div>
       )}

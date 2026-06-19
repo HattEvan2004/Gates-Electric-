@@ -97,8 +97,11 @@ export default function Home() {
           </div>
         </div>
 
-        {/* Mobile trust bar — pinned to the bottom of the hero */}
-        <div className="md:hidden absolute bottom-0 left-0 right-0 z-10 border-t border-white/10 bg-[#070708]/85 backdrop-blur-sm"
+        {/* Mobile blueprint band — gives the animation its own room under the buttons */}
+        <div className="md:hidden h-[32vh] min-h-[240px]" aria-hidden="true" />
+
+        {/* Mobile trust bar */}
+        <div className="md:hidden border-t border-white/10 bg-[#070708]/85 backdrop-blur-sm"
           style={{ paddingBottom: 'env(safe-area-inset-bottom)' }}
         >
           <div className="grid grid-cols-2 divide-x divide-white/10">
