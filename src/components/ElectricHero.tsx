@@ -199,15 +199,15 @@ export default function ElectricHero({ full = true, children }: Props) {
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
 
       // fit design box into the lower portion of the hero
-      const isPhone = w < 640;
-      const isTablet = w >= 640 && w < 1024;
-      const margin = isPhone ? 1.06 : 0.94;
+      const isPhone = w < 768;
+      const isTablet = w >= 768 && w < 1024;
+      const margin = isPhone ? 1.0 : 0.94;
       let scale = (w * margin) / DBW;
-      const maxH = h * (full ? (isPhone ? 0.2 : isTablet ? 0.5 : 0.62) : 0.92);
+      const maxH = h * (full ? (isPhone ? 0.46 : isTablet ? 0.5 : 0.62) : 0.92);
       if (DBH * scale > maxH) scale = maxH / DBH;
       const drawW = DBW * scale;
       const originX = (w - drawW) / 2;
-      const groundY = full ? (isPhone ? h * 1.0 : h * 0.9) : h * 0.96;
+      const groundY = full ? (isPhone ? h * 0.87 : h * 0.9) : h * 0.96;
       const originY = groundY - GROUND * scale;
 
       const tx = (p: Pt): Pt => ({ x: originX + p.x * scale, y: originY + p.y * scale });
@@ -423,21 +423,21 @@ export default function ElectricHero({ full = true, children }: Props) {
 
       {/* left scrim keeps the headline crisp over the streetscape (desktop) */}
       <div
-        className="absolute inset-0 pointer-events-none hidden sm:block"
+        className="absolute inset-0 pointer-events-none hidden md:block"
         style={{ background: 'linear-gradient(90deg, rgba(7,7,8,0.94) 0%, rgba(7,7,8,0.62) 30%, rgba(7,7,8,0.12) 54%, transparent 70%)' }}
       />
 
       {/* vignette + bottom fade into the next section */}
       <div className="absolute inset-0 pointer-events-none"
         style={{ background: 'radial-gradient(140% 120% at 50% 40%, transparent 55%, rgba(0,0,0,0.55) 100%)' }} />
-      <div className="absolute bottom-0 left-0 right-0 h-40 bg-gradient-to-t from-[#070708] to-transparent pointer-events-none hidden sm:block" />
+      <div className="absolute bottom-0 left-0 right-0 h-40 bg-gradient-to-t from-[#070708] to-transparent pointer-events-none hidden md:block" />
       <div
-        className="absolute bottom-0 left-0 right-0 h-[38%] pointer-events-none sm:hidden"
-        style={{ background: 'linear-gradient(to top, #070708 0%, #070708 14%, rgba(7,7,8,0.5) 48%, transparent 100%)' }}
+        className="absolute inset-0 pointer-events-none md:hidden"
+        style={{ background: 'linear-gradient(to bottom, #0a0a0d 0%, #0a0a0d 34%, rgba(10,10,13,0.55) 48%, rgba(10,10,13,0.15) 62%, transparent 80%, rgba(7,7,8,0.6) 95%, #070708 100%)' }}
       />
 
       {children && (
-        <div className="relative z-10 h-full flex flex-col justify-start sm:justify-center">
+        <div className="relative z-10 h-full flex flex-col justify-start md:justify-center">
           {children}
         </div>
       )}

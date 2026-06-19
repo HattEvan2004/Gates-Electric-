@@ -47,26 +47,42 @@ export default function Header() {
   const showSolid = scrolled || !isHome;
 
   return (
-    <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-      showSolid
-        ? 'bg-white/95 backdrop-blur-md shadow-lg border-b border-slate-200/60'
-        : 'bg-transparent'
-    }`}>
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <header
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
+        showSolid
+          ? 'bg-white/95 backdrop-blur-md shadow-lg border-b border-slate-200/60'
+          : 'bg-transparent'
+      }`}
+      style={{ paddingTop: 'env(safe-area-inset-top)' }}
+    >
+      <div className="max-w-7xl mx-auto px-5 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-20 lg:h-24">
           {/* Logo */}
           <Link to="/" className="flex-shrink-0">
-            <span
-              className={`inline-flex items-center rounded-xl transition-all duration-500 ${
-                showSolid ? '' : 'bg-white/95 px-3 py-2 shadow-lg'
-              }`}
-            >
+            {showSolid ? (
               <img
                 src="/logo.png"
                 alt="Gates Electric Ltd."
                 className="h-12 lg:h-16 w-auto object-contain"
               />
-            </span>
+            ) : (
+              <>
+                {/* mobile: clean white logo, no box */}
+                <img
+                  src="/logo-white.png"
+                  alt="Gates Electric Ltd."
+                  className="h-12 w-auto object-contain md:hidden"
+                />
+                {/* desktop: white card (unchanged) */}
+                <span className="hidden md:inline-flex items-center rounded-xl bg-white/95 px-3 py-2 shadow-lg">
+                  <img
+                    src="/logo.png"
+                    alt="Gates Electric Ltd."
+                    className="h-12 lg:h-16 w-auto object-contain"
+                  />
+                </span>
+              </>
+            )}
           </Link>
 
           {/* Desktop nav */}

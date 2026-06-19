@@ -42,15 +42,15 @@ export default function Home() {
     <>
       {/* ═══ HERO ═══ */}
       <ElectricHero full>
-        <div className="max-w-7xl mx-auto w-full px-5 sm:px-6 lg:px-8 pt-28 sm:pt-24 pb-12 sm:pb-0">
+        <div className="max-w-7xl mx-auto w-full px-5 sm:px-6 lg:px-8 pt-28 md:pt-24 pb-0">
           <div className="max-w-3xl">
             <motion.p
               initial={{ opacity: 0, y: 14 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.15 }}
-              className="flex items-center gap-3 text-brand-red font-semibold tracking-[.2em] uppercase text-[11px] sm:text-xs mb-5 sm:mb-6"
+              className="flex items-center gap-3 text-brand-red font-semibold tracking-[.24em] uppercase text-[11px] sm:text-xs mb-5 md:mb-6"
             >
-              <span className="w-8 h-px bg-brand-red/70" />
+              <span className="w-7 h-px bg-brand-red flex-none" />
               Residential &amp; Commercial Electrical Services
             </motion.p>
 
@@ -58,7 +58,7 @@ export default function Home() {
               initial={{ opacity: 0, y: 22 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, delay: 0.3 }}
-              className="font-display text-[clamp(2.05rem,7vw,5rem)] font-extrabold leading-[1.05] tracking-tight text-white mb-5 sm:mb-7"
+              className="font-display font-extrabold tracking-tight text-white mb-5 md:mb-7 text-[clamp(2.6rem,11vw,3.25rem)] leading-[1.02] md:text-[clamp(2.05rem,7vw,5rem)] md:leading-[1.05]"
             >
               Powering Chester Homes &amp; Businesses With{' '}
               <span className="text-brand-red">Precision.</span>
@@ -68,7 +68,7 @@ export default function Home() {
               initial={{ opacity: 0, y: 18 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, delay: 0.45 }}
-              className="text-base sm:text-xl text-slate-400 max-w-xl mb-8 sm:mb-10 leading-relaxed font-light"
+              className="text-[19px] md:text-xl text-slate-400 max-w-xl mb-8 md:mb-10 leading-relaxed font-light"
             >
               Gates Electric provides reliable residential and commercial
               electrical work built on safety, quality, and trust.
@@ -82,28 +82,45 @@ export default function Home() {
             >
               <Link
                 to="/contact"
-                className="group inline-flex w-full sm:w-auto justify-center items-center gap-3 bg-brand-red hover:bg-brand-red-hover text-white px-8 py-4 rounded-xl font-bold text-lg transition-all shadow-2xl shadow-red-600/25 hover:shadow-red-600/40"
+                className="group inline-flex w-full sm:w-auto min-h-[60px] md:min-h-0 justify-center items-center gap-3 bg-brand-red hover:bg-brand-red-hover text-white px-8 py-4 rounded-2xl md:rounded-xl font-bold text-lg transition-all shadow-[0_10px_40px_-8px_rgba(226,32,32,0.55)] hover:shadow-[0_12px_48px_-6px_rgba(226,32,32,0.7)] md:shadow-2xl md:shadow-red-600/25 md:hover:shadow-red-600/40"
               >
                 Request a Quote
                 <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />
               </Link>
               <Link
                 to="/services"
-                className="inline-flex w-full sm:w-auto justify-center items-center gap-3 bg-white/[.07] hover:bg-white/[.14] text-white border border-white/15 px-8 py-4 rounded-xl font-semibold text-lg transition-all backdrop-blur-md"
+                className="inline-flex w-full sm:w-auto min-h-[60px] md:min-h-0 justify-center items-center gap-3 bg-white/[.05] md:bg-white/[.07] hover:bg-white/[.12] text-white border border-white/15 px-8 py-4 rounded-2xl md:rounded-xl font-semibold text-lg transition-all backdrop-blur-md"
               >
                 View Services
               </Link>
             </motion.div>
           </div>
         </div>
-        {/* Scroll hint */}
-        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 scroll-indicator">
+
+        {/* Mobile trust bar — pinned to the bottom of the hero */}
+        <div className="md:hidden absolute bottom-0 left-0 right-0 z-10 border-t border-white/10 bg-[#070708]/85 backdrop-blur-sm"
+          style={{ paddingBottom: 'env(safe-area-inset-bottom)' }}
+        >
+          <div className="grid grid-cols-2 divide-x divide-white/10">
+            <div className="flex items-center gap-3 px-5 py-4">
+              <Shield className="w-5 h-5 text-brand-red flex-none" />
+              <span className="text-white text-sm font-semibold leading-tight">Fully Licensed<br />&amp; Insured</span>
+            </div>
+            <div className="flex items-center gap-3 px-5 py-4">
+              <MapPin className="w-5 h-5 text-brand-red flex-none" />
+              <span className="text-white text-sm font-semibold leading-tight">Chester,<br />Nova Scotia</span>
+            </div>
+          </div>
+        </div>
+
+        {/* Scroll hint (desktop/tablet only) */}
+        <div className="hidden md:block absolute bottom-8 left-1/2 -translate-x-1/2 scroll-indicator">
           <ChevronDown className="w-7 h-7 text-white/40" />
         </div>
       </ElectricHero>
 
       {/* ═══ TRUST STRIP ═══ */}
-      <section className="bg-white border-b border-slate-100">
+      <section className="hidden md:block bg-white border-b border-slate-100">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
             {highlights.map((h, i) => {
