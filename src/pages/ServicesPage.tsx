@@ -262,17 +262,21 @@ export default function ServicesPage() {
 
   return (
     <>
-      {/* ═══ HERO ═══ */}
+      {/* ═══ HERO (shared internal-page system) ═══ */}
       <ElectricHero full={false}>
-        <div className="max-w-7xl mx-auto px-5 sm:px-6 lg:px-8 pt-28 pb-4 text-center md:text-left">
+        <div className="max-w-7xl mx-auto px-5 sm:px-6 lg:px-8 pt-28 text-center">
           <motion.p initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }}
-            className="flex items-center justify-center md:justify-start gap-3 text-brand-red font-semibold tracking-[.24em] uppercase text-[11px] mb-4">
-            <span className="w-7 h-px bg-brand-red" />The Power Plan
+            className="text-brand-red font-semibold tracking-[.15em] uppercase text-xs mb-3">
+            Our Services
           </motion.p>
           <motion.h1 initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.35, duration: 0.6 }}
-            className="font-display text-4xl md:text-6xl lg:text-7xl font-extrabold text-white leading-[1.02]">
-            Every Circuit. Every Room. <span className="text-brand-red">Covered.</span>
+            className="font-display text-4xl md:text-6xl font-extrabold text-white">
+            Services
           </motion.h1>
+          <motion.p initial={{ opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.45 }}
+            className="mt-5 text-lg text-slate-400 font-light max-w-xl mx-auto leading-relaxed">
+            Every circuit, every room — residential and commercial work, fully covered.
+          </motion.p>
         </div>
       </ElectricHero>
 

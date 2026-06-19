@@ -88,12 +88,12 @@ export default function Header() {
           <nav className="hidden lg:flex items-center gap-7 xl:gap-9">
             {nav.map((item) => {
               const active = item.to ? pathname === item.to : false;
-              const cls = `text-[13px] font-semibold tracking-[.08em] uppercase transition-colors duration-300 ${
+              const cls = `relative text-[13px] tracking-[.08em] uppercase transition-colors duration-300 outline-none focus:outline-none focus-visible:text-brand-red after:absolute after:left-0 after:right-0 after:-bottom-2 after:h-[2px] after:rounded-full after:bg-brand-red after:origin-center after:transition-all after:duration-300 ${
                 active
-                  ? 'text-brand-red'
-                  : showSolid
-                    ? 'text-slate-600 hover:text-brand-red'
-                    : 'text-white/80 hover:text-white'
+                  ? 'text-brand-red font-bold after:scale-x-100 after:opacity-100'
+                  : `font-semibold after:scale-x-0 after:opacity-0 hover:after:scale-x-100 hover:after:opacity-40 ${
+                      showSolid ? 'text-slate-600 hover:text-brand-red' : 'text-white/80 hover:text-white'
+                    }`
               }`;
               return item.hash ? (
                 <button key={item.label} onClick={() => goToHash(item.hash!)} className={cls}>
@@ -142,7 +142,7 @@ export default function Header() {
           <div className="px-6 py-6 space-y-1">
             {nav.map((item) => {
               const active = item.to ? pathname === item.to : false;
-              const cls = `block w-full text-left py-3 text-lg font-medium transition-colors ${
+              const cls = `block w-full text-left py-3 text-lg font-medium transition-colors outline-none focus:outline-none ${
                 active ? 'text-brand-red' : 'text-slate-800 hover:text-brand-red'
               }`;
               return item.hash ? (

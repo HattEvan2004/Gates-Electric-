@@ -4,6 +4,7 @@ import {
   Home, Building2, Lightbulb, BatteryCharging, PencilRuler, Zap, Clock, Phone,
 } from 'lucide-react';
 import { motion } from 'motion/react';
+import ElectricHero from '../components/ElectricHero';
 
 /* ═══════════════════════════════════════════════════════════
    ABOUT — Gates Electric
@@ -44,59 +45,16 @@ export default function AboutPage() {
         .ab-flow { stroke-dasharray: 5 16; animation: ab-flow 7s linear infinite; }
       `}</style>
 
-      {/* ═══ 1 · CINEMATIC HERO ═══ */}
-      <section className="relative overflow-hidden bg-[#08080b] min-h-[82vh] flex items-center pt-32 pb-24">
-        {/* blueprint grid */}
-        <svg className="absolute inset-0 w-full h-full opacity-[.5] pointer-events-none" aria-hidden="true">
-          <defs>
-            <pattern id="ab-grid" width="46" height="46" patternUnits="userSpaceOnUse">
-              <path d="M46 0L0 0 0 46" fill="none" stroke="rgba(170,196,222,.06)" strokeWidth=".6" />
-            </pattern>
-          </defs>
-          <rect width="100%" height="100%" fill="url(#ab-grid)" />
-        </svg>
-        {/* atmospheric blended image */}
-        <div className="absolute inset-y-0 right-0 w-1/2 hidden lg:block">
-          <img src="/gallery-2.jpg" alt="" className="w-full h-full object-cover opacity-[.22]" />
-          <div className="absolute inset-0 bg-gradient-to-r from-[#08080b] via-[#08080b]/70 to-[#08080b]/20" />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#08080b] via-transparent to-[#08080b]" />
+      {/* ═══ 1 · INTERNAL PAGE HERO (shared system) ═══ */}
+      <ElectricHero full={false}>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-28 text-center">
+          <p className="text-brand-red font-semibold tracking-[.15em] uppercase text-xs mb-3">About Gates Electric</p>
+          <h1 className="font-display text-4xl md:text-6xl font-extrabold text-white">About Gates Electric</h1>
+          <p className="mt-5 text-lg text-slate-400 font-light max-w-xl mx-auto leading-relaxed">
+            Local electrical work built on safety, quality, and trust.
+          </p>
         </div>
-        {/* red circuit glows */}
-        <div className="absolute -top-20 left-[20%] w-[520px] h-[520px] rounded-full bg-brand-red/[.10] blur-[150px] pointer-events-none" />
-        <div className="absolute bottom-0 right-[10%] w-[460px] h-[460px] rounded-full bg-brand-red/[.07] blur-[150px] pointer-events-none" />
-        {/* flowing circuit lines */}
-        <svg className="absolute inset-0 w-full h-full pointer-events-none" aria-hidden="true">
-          <g stroke="rgba(220,38,38,.25)" strokeWidth="1" fill="none">
-            <path className="ab-flow" d="M0,120 L320,120 L360,160 L900,160" style={{ animationDuration: '9s' }} />
-            <path className="ab-flow" d="M-20,80% L400,80% L440,72% L1200,72%" style={{ animationDuration: '12s' }} />
-          </g>
-        </svg>
-        <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-brand-red/40 to-transparent" />
-
-        <div className="relative z-10 max-w-7xl mx-auto px-5 sm:px-6 lg:px-8 w-full">
-          <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}
-            className="flex items-center gap-3 text-brand-red font-semibold tracking-[.24em] uppercase text-[11px] mb-6">
-            <span className="w-8 h-px bg-brand-red" /> About Gates Electric
-          </motion.div>
-          <motion.h1 initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, delay: 0.1 }}
-            className="font-display font-extrabold text-white max-w-4xl leading-[1.05] tracking-tight text-[clamp(2.3rem,5.5vw,4.5rem)]">
-            Electrical Work Built on Trust, Precision, and <span className="text-brand-red">Local Reputation</span>
-          </motion.h1>
-          <motion.p initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, delay: 0.25 }}
-            className="mt-7 text-lg md:text-xl text-slate-400 font-light leading-relaxed max-w-2xl">
-            Serving Chester and the South Shore with dependable residential and commercial electrical services —
-            delivered with safety, professionalism, and quality workmanship.
-          </motion.p>
-          <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, delay: 0.4 }}
-            className="mt-10 flex flex-wrap gap-3">
-            {['Residential & Commercial', 'Serving South Shore Nova Scotia', 'Free Quotes'].map((c) => (
-              <span key={c} className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-white/12 bg-white/[.04] text-slate-200 text-sm font-medium backdrop-blur-sm">
-                <span className="w-1.5 h-1.5 rounded-full bg-brand-red" /> {c}
-              </span>
-            ))}
-          </motion.div>
-        </div>
-      </section>
+      </ElectricHero>
 
       {/* ═══ 2 · BRAND STORY ═══ */}
       <section className="bg-white py-24 md:py-32">

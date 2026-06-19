@@ -17,6 +17,9 @@ export default function ContactPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-28 text-center">
           <p className="text-brand-red font-semibold tracking-[.15em] uppercase text-xs mb-3">Get in Touch</p>
           <h1 className="font-display text-4xl md:text-6xl font-extrabold text-white">Contact Us</h1>
+          <p className="mt-5 text-lg text-slate-400 font-light max-w-xl mx-auto leading-relaxed">
+            Reach out for a free quote on your next electrical project.
+          </p>
         </div>
       </ElectricHero>
 
