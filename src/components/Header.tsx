@@ -56,13 +56,17 @@ export default function Header() {
         <div className="flex items-center justify-between h-20 lg:h-24">
           {/* Logo */}
           <Link to="/" className="flex-shrink-0">
-            <img
-              src="/logo.png"
-              alt="Gates Electric Ltd."
-              className={`h-14 lg:h-[4.5rem] w-auto object-contain transition-all duration-500 ${
-                showSolid ? '' : 'brightness-0 invert drop-shadow-lg'
+            <span
+              className={`inline-flex items-center rounded-xl transition-all duration-500 ${
+                showSolid ? '' : 'bg-white/95 px-3 py-2 shadow-lg'
               }`}
-            />
+            >
+              <img
+                src="/logo.png"
+                alt="Gates Electric Ltd."
+                className="h-12 lg:h-16 w-auto object-contain"
+              />
+            </span>
           </Link>
 
           {/* Desktop nav */}
