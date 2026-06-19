@@ -9,17 +9,55 @@ import ElectricHero from '../components/ElectricHero';
    Gates Electric powers the entire property.
    ═══════════════════════════════════════════════════════════ */
 
-const zones = [
-  { title: 'New Home Builds', short: 'Full Structure', desc: 'Complete electrical rough-ins and finishing for custom homes. Every circuit, switch, and fixture planned and installed to code.' },
-  { title: 'Renovations', short: 'Interior Spaces', desc: 'Kitchens, bathrooms, basements, and additions. We handle the electrical so your renovation runs smoothly.' },
-  { title: 'Panel Upgrades', short: 'Electrical Panel', desc: 'Modern panels for safety and capacity. We replace outdated breaker boxes to meet current code and power demands.' },
-  { title: 'Service Upgrades', short: 'Service Entrance', desc: 'We size and install service entrances that handle today\u2019s household loads safely and to code.' },
-  { title: 'Generator Systems', short: 'Backup Power', desc: 'Transfer switches, generator panels, and full backup power. Keep running through South Shore storms.' },
-  { title: 'Heat Pump Wiring', short: 'Heat Pump', desc: 'Dedicated circuits properly sized for heat pumps and mini-splits, including disconnect and load calculations.' },
-  { title: 'Lighting', short: 'Lighting Zones', desc: 'Recessed, track, landscape, and specialty lighting. Layouts designed for your space, inside and out.' },
-  { title: 'Plugs & Outlets', short: 'Outlets', desc: 'Standard, GFCI, tamper-resistant, USB, and 240V outlets. New installations and code-required upgrades.' },
-  { title: 'Underground Service', short: 'Underground', desc: 'Installation and repair of underground electrical lines between buildings, garages, and service entrances.' },
-  { title: 'Appliance Circuits', short: 'Appliances', desc: 'Dedicated circuits for ranges, dryers, hot tubs, EV chargers, and heavy-draw appliances.' },
+interface Zone {
+  title: string;
+  short: string;
+  desc: string;
+  includes: string[];
+  cta: string;
+}
+
+const zones: Zone[] = [
+  { title: 'New Home Builds', short: 'Full Structure',
+    desc: 'Complete electrical rough-ins and finishing for custom South Shore homes, planned and installed to code.',
+    includes: ['Full rough-in wiring', 'Panel & service setup', 'Fixtures & devices', 'Inspection & certification'],
+    cta: 'Plan Your Build' },
+  { title: 'Renovations', short: 'Interior Spaces',
+    desc: 'Clean, on-schedule electrical work for kitchens, baths, basements, and additions.',
+    includes: ['Kitchen & bath circuits', 'Added outlets & lighting', 'Panel & circuit updates', 'Code corrections'],
+    cta: 'Start Your Reno' },
+  { title: 'Panel Upgrades', short: 'Electrical Panel',
+    desc: 'Modern panels for safe, expandable capacity that meet current code and power demands.',
+    includes: ['Breaker box replacement', 'Capacity & load upgrade', 'Surge protection options', 'Code-compliant install'],
+    cta: 'Upgrade Your Panel' },
+  { title: 'Service Upgrades', short: 'Service Entrance',
+    desc: 'Right-sized service entrances that handle today\u2019s household loads safely.',
+    includes: ['100A\u2013200A upgrades', 'New meter base & mast', 'Utility coordination', 'Permits & inspection'],
+    cta: 'Upgrade Your Service' },
+  { title: 'Generator Systems', short: 'Backup Power',
+    desc: 'Backup power solutions for South Shore homes during outages.',
+    includes: ['Transfer switch installation', 'Generator panel setup', 'Load planning', 'Code-compliant wiring'],
+    cta: 'Plan Backup Power' },
+  { title: 'Heat Pump Wiring', short: 'Heat Pump',
+    desc: 'Dedicated, correctly-sized circuits for efficient heat pumps and mini-splits.',
+    includes: ['Sized dedicated circuit', 'Outdoor disconnect', 'Load calculations', 'Mini-split wiring'],
+    cta: 'Wire Your Heat Pump' },
+  { title: 'Lighting', short: 'Lighting Zones',
+    desc: 'Layered lighting designed for every space, inside and out.',
+    includes: ['Recessed & track lighting', 'Landscape & exterior', 'Dimmers & controls', 'Layout design'],
+    cta: 'Light Your Space' },
+  { title: 'Plugs & Outlets', short: 'Outlets',
+    desc: 'Safe, code-current outlets exactly where you need them.',
+    includes: ['GFCI & tamper-resistant', 'USB & 240V outlets', 'Added receptacles', 'Code upgrades'],
+    cta: 'Add Outlets' },
+  { title: 'Underground Service', short: 'Underground',
+    desc: 'Reliable buried lines between buildings, garages, and service entrances.',
+    includes: ['Trenching & conduit', 'Buried feeders', 'Outbuilding power', 'Repairs & locates'],
+    cta: 'Run Underground Power' },
+  { title: 'Appliance Circuits', short: 'Appliances',
+    desc: 'Dedicated circuits for ranges, dryers, hot tubs, EV chargers, and heavy-draw appliances.',
+    includes: ['Range & dryer circuits', 'Hot tub & EV chargers', 'Dedicated 240V', 'Load balancing'],
+    cta: 'Power Your Appliances' },
 ];
 
 /* ── SVG coordinates ─────────────────────────────────────── */
@@ -59,57 +97,97 @@ const zoneGfx: { area: string; trace: string }[] = [
 
 /* ── interactive property blueprint ──────────────────────── */
 function PropertyBlueprint({ active }: { active: number }) {
-  const ln = 'rgba(160,185,210,';
+  const ln = 'rgba(170,196,222,';
+  const trace = zoneGfx[active].trace;
   return (
     <svg viewBox="0 0 1000 560" className="w-full h-auto" preserveAspectRatio="xMidYMid meet">
       <defs>
-        <pattern id="bp-grid" width="40" height="40" patternUnits="userSpaceOnUse">
-          <path d="M40 0L0 0 0 40" fill="none" stroke="rgba(160,185,210,.06)" strokeWidth=".5"/>
+        <pattern id="bp-fine" width="25" height="25" patternUnits="userSpaceOnUse">
+          <path d="M25 0L0 0 0 25" fill="none" stroke="rgba(170,196,222,.05)" strokeWidth=".5" />
         </pattern>
+        <pattern id="bp-major" width="100" height="100" patternUnits="userSpaceOnUse">
+          <path d="M100 0L0 0 0 100" fill="none" stroke="rgba(170,196,222,.08)" strokeWidth=".7" />
+        </pattern>
+        <filter id="redGlow" x="-40%" y="-40%" width="180%" height="180%">
+          <feGaussianBlur stdDeviation="3.5" result="b" />
+          <feMerge><feMergeNode in="b" /><feMergeNode in="SourceGraphic" /></feMerge>
+        </filter>
+        <radialGradient id="ambient" cx="50%" cy="55%" r="55%">
+          <stop offset="0%" stopColor="rgba(220,38,38,.16)" />
+          <stop offset="100%" stopColor="rgba(220,38,38,0)" />
+        </radialGradient>
+        <style>{`
+          @keyframes bpflow { to { stroke-dashoffset: -240; } }
+          .bpflow { stroke-dasharray: 6 18; animation: bpflow 6s linear infinite; }
+        `}</style>
       </defs>
-      <rect width="1000" height="560" fill="url(#bp-grid)"/>
 
-      {/* zone highlights */}
-      {zoneGfx.map((z, i) => (
-        <motion.path key={`a${i}`} d={z.area} fillRule="nonzero"
-          animate={{ fill: i === active ? 'rgba(220,38,38,.08)' : 'rgba(220,38,38,0)', stroke: i === active ? 'rgba(220,38,38,.2)' : 'rgba(220,38,38,0)' }}
-          transition={{ duration: 0.5 }} strokeWidth="1" />
-      ))}
+      <rect width="1000" height="560" fill="url(#bp-fine)" />
+      <rect width="1000" height="560" fill="url(#bp-major)" />
+      <ellipse cx="500" cy="320" rx="420" ry="240" fill="url(#ambient)" />
 
-      {/* house structure */}
-      <g stroke={`${ln}0.35)`} strokeWidth="1.5" fill="none" strokeLinejoin="round" strokeLinecap="round">
-        <line x1="60" y1={H.ground} x2="960" y2={H.ground}/>
-        <rect x={H.left} y={H.eaveY} width={H.right-H.left} height={H.ground-H.eaveY} rx="1"/>
-        <polyline points={`${H.left-25},${H.eaveY} ${H.mid},${H.roofPeak} ${H.right+25},${H.eaveY}`}/>
-        <line x1={H.left} y1={H.floorY} x2={H.right} y2={H.floorY}/>
-        <line x1="430" y1={H.floorY} x2="430" y2={H.ground} strokeDasharray="4 4" stroke={`${ln}0.18)`}/>
-        <line x1="470" y1={H.eaveY} x2="470" y2={H.floorY} strokeDasharray="4 4" stroke={`${ln}0.18)`}/>
-        <rect x={H.right} y={H.garageTop} width={H.garageR-H.right} height={H.ground-H.garageTop} rx="1"/>
-        <rect x="745" y="330" width="140" height="170" rx="2" stroke={`${ln}0.2)`}/>
-        <line x1="745" y1="390" x2="885" y2="390" stroke={`${ln}0.1)`}/>
-        <line x1="745" y1="445" x2="885" y2="445" stroke={`${ln}0.1)`}/>
-        <rect x="410" y="400" width="50" height="100" rx="1"/>
-        <rect x="260" y="370" width="65" height="55" rx="2" stroke={`${ln}0.25)`}/>
-        <rect x="540" y="370" width="65" height="55" rx="2" stroke={`${ln}0.25)`}/>
-        <rect x="270" y="210" width="55" height="48" rx="2" stroke={`${ln}0.25)`}/>
-        <rect x="545" y="215" width="50" height="40" rx="2" stroke={`${ln}0.25)`}/>
-        <rect x="340" y={H.roofPeak+20} width="28" height={H.eaveY-H.roofPeak-45} stroke={`${ln}0.2)`}/>
+      {/* slow ambient circuit lines in the background */}
+      <g stroke="rgba(220,38,38,.18)" strokeWidth="1" fill="none">
+        <path className="bpflow" d="M0,90 L250,90 L280,120 L1000,120" style={{ animationDuration: '9s' }} />
+        <path className="bpflow" d="M1000,520 L780,520 L750,492 L0,492" style={{ animationDuration: '11s' }} />
+      </g>
+
+      {/* zone highlights — active zone softly pulses */}
+      {zoneGfx.map((z, i) =>
+        i === active ? (
+          <motion.path key={`a${i}`} d={z.area} fillRule="nonzero" stroke="rgba(220,38,38,.35)" strokeWidth="1"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1, fill: ['rgba(220,38,38,.06)', 'rgba(220,38,38,.16)', 'rgba(220,38,38,.06)'] }}
+            transition={{ opacity: { duration: 0.4 }, fill: { duration: 2.6, repeat: Infinity, ease: 'easeInOut' } }} />
+        ) : (
+          <path key={`a${i}`} d={z.area} fill="rgba(220,38,38,0)" />
+        )
+      )}
+
+      {/* house structure (brighter) */}
+      <g stroke={`${ln}0.5)`} strokeWidth="1.6" fill="none" strokeLinejoin="round" strokeLinecap="round">
+        <line x1="60" y1={H.ground} x2="960" y2={H.ground} stroke={`${ln}0.6)`} />
+        <rect x={H.left} y={H.eaveY} width={H.right - H.left} height={H.ground - H.eaveY} rx="1" />
+        <polyline points={`${H.left - 25},${H.eaveY} ${H.mid},${H.roofPeak} ${H.right + 25},${H.eaveY}`} />
+        <line x1={H.left} y1={H.floorY} x2={H.right} y2={H.floorY} />
+        <line x1="430" y1={H.floorY} x2="430" y2={H.ground} strokeDasharray="4 4" stroke={`${ln}0.25)`} />
+        <line x1="470" y1={H.eaveY} x2="470" y2={H.floorY} strokeDasharray="4 4" stroke={`${ln}0.25)`} />
+        <rect x={H.right} y={H.garageTop} width={H.garageR - H.right} height={H.ground - H.garageTop} rx="1" />
+        <rect x="745" y="330" width="140" height="170" rx="2" stroke={`${ln}0.3)`} />
+        <line x1="745" y1="390" x2="885" y2="390" stroke={`${ln}0.16)`} />
+        <line x1="745" y1="445" x2="885" y2="445" stroke={`${ln}0.16)`} />
+        <rect x="410" y="400" width="50" height="100" rx="1" />
+        <rect x="260" y="370" width="65" height="55" rx="2" stroke={`${ln}0.38)`} />
+        <rect x="540" y="370" width="65" height="55" rx="2" stroke={`${ln}0.38)`} />
+        <rect x="270" y="210" width="55" height="48" rx="2" stroke={`${ln}0.38)`} />
+        <rect x="545" y="215" width="50" height="40" rx="2" stroke={`${ln}0.38)`} />
+        <rect x="340" y={H.roofPeak + 20} width="28" height={H.eaveY - H.roofPeak - 45} stroke={`${ln}0.3)`} />
       </g>
 
       {/* external equipment */}
-      <g stroke={`${ln}0.28)`} strokeWidth="1.2" fill="none">
-        <line x1={H.mastX} y1={H.eaveY} x2={H.mastX} y2={H.mastTop}/>
-        <line x1={H.mastX-8} y1={H.mastTop} x2={H.mastX+8} y2={H.mastTop}/>
-        <rect x={H.panelX-12} y={H.panelY-20} width="24" height="42" rx="2"/>
-        <rect x={H.genX} y={H.genY} width="55" height="52" rx="3"/>
-        <text x={H.genX+27} y={H.genY+30} textAnchor="middle" fill={`${ln}0.22)`} fontSize="9" fontFamily="Inter">GEN</text>
-        <rect x={H.hpX} y={H.hpY} width="48" height="46" rx="3"/>
-        <circle cx={H.hpX+24} cy={H.hpY+23} r="12" stroke={`${ln}0.18)`}/>
-        <line x1="0" y1={H.ground+18} x2={H.left} y2={H.ground+18} strokeDasharray="6 4" stroke={`${ln}0.14)`}/>
+      <g stroke={`${ln}0.4)`} strokeWidth="1.3" fill="none">
+        <line x1={H.mastX} y1={H.eaveY} x2={H.mastX} y2={H.mastTop} />
+        <line x1={H.mastX - 8} y1={H.mastTop} x2={H.mastX + 8} y2={H.mastTop} />
+        <rect x={H.panelX - 12} y={H.panelY - 20} width="24" height="42" rx="2" />
+        <line x1="0" y1={H.ground + 18} x2={H.left} y2={H.ground + 18} strokeDasharray="6 4" stroke={`${ln}0.18)`} />
+        <rect x={H.hpX} y={H.hpY} width="48" height="46" rx="3" />
+        <circle cx={H.hpX + 24} cy={H.hpY + 23} r="12" stroke={`${ln}0.24)`} />
+      </g>
+
+      {/* generator / backup-power zone — always legible, emphasized when active */}
+      <g>
+        <motion.rect x={H.genX - 4} y={H.genY - 16} width="63" height="72" rx="5" fill="rgba(220,38,38,.05)"
+          stroke="#dc2626"
+          animate={{ strokeOpacity: active === 4 ? 0.9 : 0.32, filter: active === 4 ? 'drop-shadow(0 0 10px rgba(220,38,38,.6))' : 'none' }}
+          transition={{ duration: 0.4 }} strokeWidth="1.4" />
+        <rect x={H.genX} y={H.genY} width="55" height="40" rx="3" fill="none" stroke={`${ln}0.45)`} strokeWidth="1.2" />
+        <path d={`M${H.genX + 30},${H.genY + 8} l-9,13 h7 l-4,11 12,-15 h-7 z`} fill="#dc2626"
+          opacity={active === 4 ? 1 : 0.55} style={{ filter: active === 4 ? 'drop-shadow(0 0 6px rgba(220,38,38,.8))' : 'none' }} />
+        <text x={H.genX + 27} y={H.genY + 50} textAnchor="middle" fill={active === 4 ? '#fca5a5' : `${ln}0.4)`} fontSize="8.5" fontFamily="Inter" fontWeight="700" letterSpacing="1">BACKUP</text>
       </g>
 
       {/* room labels */}
-      <g fill="rgba(160,185,210,.16)" fontSize="10" fontFamily="Inter" fontWeight="500">
+      <g fill="rgba(170,196,222,.22)" fontSize="10" fontFamily="Inter" fontWeight="500">
         <text x="300" y="445">Kitchen</text>
         <text x="535" y="445">Living</text>
         <text x="290" y="268">Bedroom</text>
@@ -117,36 +195,46 @@ function PropertyBlueprint({ active }: { active: number }) {
         <text x="800" y="400">Garage</text>
       </g>
 
-      {/* active electrical traces */}
-      {zoneGfx.map((z, i) => (
-        <motion.path key={`t${i}`} d={z.trace} fill="none" stroke="#dc2626" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"
-          initial={{ pathLength: 0, opacity: 0 }}
-          animate={i === active ? { pathLength: 1, opacity: 1 } : { pathLength: 0, opacity: 0 }}
-          transition={i === active ? { pathLength: { duration: 1, ease: 'easeInOut' }, opacity: { duration: 0.2 } } : { duration: 0.3 }}
-          style={{ filter: i === active ? 'drop-shadow(0 0 6px rgba(220,38,38,.5))' : 'none' }}
-        />
+      {/* active circuit — soft glow underlay + energized bright line */}
+      <motion.path key={`glow${active}`} d={trace} fill="none" stroke="rgba(220,38,38,.5)" strokeWidth="7"
+        strokeLinecap="round" strokeLinejoin="round" style={{ filter: 'url(#redGlow)' }}
+        initial={{ pathLength: 0, opacity: 0 }}
+        animate={{ pathLength: 1, opacity: [0.35, 0.7, 0.35] }}
+        transition={{ pathLength: { duration: 0.9, ease: 'easeInOut' }, opacity: { duration: 2.4, repeat: Infinity, ease: 'easeInOut' } }} />
+      <motion.path key={`line${active}`} d={trace} fill="none" stroke="#ff4d4d" strokeWidth="2.2"
+        strokeLinecap="round" strokeLinejoin="round" style={{ filter: 'drop-shadow(0 0 4px rgba(255,80,80,.8))' }}
+        initial={{ pathLength: 0, opacity: 0 }} animate={{ pathLength: 1, opacity: 1 }}
+        transition={{ pathLength: { duration: 0.9, ease: 'easeInOut' }, opacity: { duration: 0.25 } }} />
+
+      {/* animated current dots travelling along the active circuit */}
+      {[0, 1, 2].map((k) => (
+        <circle key={`dot${active}-${k}`} r="3.1" fill="#fff" style={{ filter: 'drop-shadow(0 0 5px rgba(255,90,90,1))' }}>
+          <animateMotion dur="2.1s" repeatCount="indefinite" begin={`-${k * 0.7}s`} path={trace} />
+        </circle>
       ))}
 
-      {/* panel node */}
-      <motion.circle cx={H.panelX} cy={H.panelY} r="5" fill="#dc2626"
-        animate={{ opacity: active >= 0 ? 1 : 0.4 }}
-        style={{ filter: 'drop-shadow(0 0 8px rgba(220,38,38,.6))' }} />
+      {/* panel node — energized core */}
+      <circle cx={H.panelX} cy={H.panelY} r="11" fill="rgba(220,38,38,.18)">
+        <animate attributeName="r" values="9;13;9" dur="2.4s" repeatCount="indefinite" />
+        <animate attributeName="opacity" values=".5;.15;.5" dur="2.4s" repeatCount="indefinite" />
+      </circle>
+      <circle cx={H.panelX} cy={H.panelY} r="5" fill="#ff4d4d" style={{ filter: 'drop-shadow(0 0 8px rgba(255,80,80,.9))' }} />
 
-      {/* light fixture dots */}
-      {active === 6 && [[250,H.floorY+6],[350,H.floorY+6],[500,H.floorY+6],[620,H.floorY+6],[280,H.eaveY+6],[400,H.eaveY+6],[550,H.eaveY+6]].map(([cx,cy],j) => (
-        <motion.circle key={`lf${j}`} cx={cx} cy={cy} r="4" fill="#dc2626"
-          initial={{ scale: 0, opacity: 0 }} animate={{ scale: 1, opacity: .8 }}
-          transition={{ delay: .2 + j * .06 }}
-          style={{ filter: 'drop-shadow(0 0 10px rgba(255,200,120,.6))' }} />
+      {/* light fixtures (Lighting zone) */}
+      {active === 6 && [[250, H.floorY + 6], [350, H.floorY + 6], [500, H.floorY + 6], [620, H.floorY + 6], [280, H.eaveY + 6], [400, H.eaveY + 6], [550, H.eaveY + 6]].map(([cx, cy], j) => (
+        <motion.circle key={`lf${j}`} cx={cx} cy={cy} r="4" fill="#ffd27a"
+          initial={{ scale: 0, opacity: 0 }} animate={{ scale: 1, opacity: 0.9 }}
+          transition={{ delay: 0.2 + j * 0.06 }}
+          style={{ filter: 'drop-shadow(0 0 10px rgba(255,200,120,.7))' }} />
       ))}
 
-      {/* outlet symbols */}
-      {active === 7 && [[H.left+5,H.ground-56],[435,H.ground-56],[H.right-12,H.ground-56]].map(([cx,cy],j) => (
-        <motion.rect key={`ol${j}`} x={cx-4} y={cy-5} width="8" height="10" rx="1.5"
-          fill="none" stroke="#dc2626" strokeWidth="1.5"
-          initial={{ scale: 0, opacity: 0 }} animate={{ scale: 1, opacity: .8 }}
-          transition={{ delay: .2 + j * .08 }}
-          style={{ filter: 'drop-shadow(0 0 6px rgba(220,38,38,.5))' }} />
+      {/* outlets (Plugs & Outlets zone) */}
+      {active === 7 && [[H.left + 5, H.ground - 56], [435, H.ground - 56], [H.right - 12, H.ground - 56]].map(([cx, cy], j) => (
+        <motion.rect key={`ol${j}`} x={cx - 4} y={cy - 5} width="8" height="10" rx="1.5"
+          fill="none" stroke="#ff4d4d" strokeWidth="1.5"
+          initial={{ scale: 0, opacity: 0 }} animate={{ scale: 1, opacity: 0.9 }}
+          transition={{ delay: 0.2 + j * 0.08 }}
+          style={{ filter: 'drop-shadow(0 0 6px rgba(220,38,38,.6))' }} />
       ))}
     </svg>
   );
@@ -189,13 +277,30 @@ export default function ServicesPage() {
       </ElectricHero>
 
       {/* ═══ RESIDENTIAL — INTERACTIVE BLUEPRINT ═══ */}
-      <section className="bg-brand-dark py-20 md:py-28">
-        <div className="max-w-7xl mx-auto px-5 sm:px-6 lg:px-8">
+      <section className="relative bg-brand-dark py-20 md:py-28 overflow-hidden">
+        {/* smoother transition from navbar/hero into the dark section */}
+        <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-brand-red/40 to-transparent" />
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-32 bg-brand-red/[.07] blur-[80px] pointer-events-none" />
+        {/* soft red ambient glow behind the diagram */}
+        <div className="absolute top-1/2 left-[28%] -translate-x-1/2 -translate-y-1/2 w-[680px] h-[680px] rounded-full bg-brand-red/[.06] blur-[150px] pointer-events-none" />
+
+        <div className="relative max-w-7xl mx-auto px-5 sm:px-6 lg:px-8">
           {/* Section header */}
-          <motion.div initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="mb-14 text-center md:text-left">
+          <motion.div initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="mb-8 text-center md:text-left">
             <p className="text-brand-red font-semibold tracking-[.2em] uppercase text-xs mb-3">Residential Services</p>
             <h2 className="font-display text-3xl md:text-5xl font-extrabold text-white mb-3">Your Home, Fully Powered</h2>
-            <p className="text-slate-400 text-lg font-light max-w-lg mx-auto md:mx-0">Select a service to see how Gates Electric powers that zone of your property.</p>
+            <p className="text-slate-400 text-lg font-light max-w-lg mx-auto md:mx-0">Select a powered zone to see how Gates Electric energizes that part of your property.</p>
+          </motion.div>
+
+          {/* trust / value strip */}
+          <motion.div initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} transition={{ delay: 0.2 }}
+            className="flex flex-wrap items-center justify-center md:justify-start gap-x-3 gap-y-2 mb-14 text-[13px] font-medium text-slate-300">
+            {['Residential', 'Commercial', 'South Shore Nova Scotia', 'Licensed Electrical Work'].map((t, i) => (
+              <span key={t} className="flex items-center gap-3">
+                {i > 0 && <span className="w-1 h-1 rounded-full bg-brand-red/70" />}
+                <span className={i === 3 ? 'text-white' : ''}>{t}</span>
+              </span>
+            ))}
           </motion.div>
 
           {/* Blueprint + service selector */}
@@ -205,51 +310,82 @@ export default function ServicesPage() {
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              className="lg:col-span-7 relative rounded-2xl border border-white/[.06] bg-[#0c0c12] p-4 md:p-6"
+              className="lg:col-span-7 relative rounded-2xl border border-white/[.08] bg-gradient-to-b from-[#0e0f15] to-[#0a0a0e] p-4 md:p-6 shadow-[0_30px_80px_-30px_rgba(0,0,0,0.8)]"
             >
+              {/* inner top sheen */}
+              <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/10 to-transparent" />
               <PropertyBlueprint active={active} />
               {/* Active zone label overlay */}
               <div className="absolute top-4 right-4 md:top-6 md:right-6">
                 <AnimatePresence mode="wait">
                   <motion.div key={active} initial={{ opacity: 0, y: -8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: 8 }}
-                    className="px-4 py-2 rounded-lg bg-brand-red text-white text-sm font-bold tracking-wide shadow-lg">
+                    className="flex items-center gap-2 px-4 py-2 rounded-lg bg-brand-red text-white text-sm font-bold tracking-wide shadow-[0_8px_24px_-6px_rgba(220,38,38,.6)]">
+                    <span className="w-1.5 h-1.5 rounded-full bg-white animate-pulse" />
                     {zones[active].short}
                   </motion.div>
                 </AnimatePresence>
+              </div>
+              {/* live status footer */}
+              <div className="flex items-center justify-between px-1 pt-3 text-[11px] tracking-wide text-slate-500">
+                <span className="flex items-center gap-2"><span className="w-1.5 h-1.5 rounded-full bg-green-400 shadow-[0_0_8px_rgba(74,222,128,.8)]" />System Energized</span>
+                <span>Gates Electric · Service Panel</span>
               </div>
             </motion.div>
 
             {/* Service selector + detail */}
             <div className="lg:col-span-5">
-              {/* Service tabs */}
-              <div className="grid grid-cols-2 gap-2 mb-8">
+              {/* Service tabs — premium, powered when active */}
+              <div className="grid grid-cols-2 gap-2.5 mb-8">
                 {zones.map((z, i) => (
                   <button
                     key={z.title}
                     onClick={() => setActive(i)}
-                    className={`text-left px-4 py-3 rounded-xl text-sm font-semibold transition-all duration-300 ${
+                    className={`group relative text-left px-4 py-3 rounded-xl text-sm font-semibold transition-all duration-300 overflow-hidden ${
                       i === active
-                        ? 'bg-brand-red text-white shadow-lg shadow-red-600/20'
-                        : 'bg-white/[.04] text-slate-400 hover:bg-white/[.08] hover:text-white border border-white/[.06]'
+                        ? 'bg-gradient-to-br from-brand-red to-[#b91c1c] text-white shadow-[0_10px_30px_-8px_rgba(220,38,38,.7)] ring-1 ring-red-400/40 -translate-y-0.5'
+                        : 'bg-white/[.04] text-slate-300 hover:bg-white/[.08] hover:text-white hover:-translate-y-0.5 border border-white/[.07] hover:border-white/[.14] hover:shadow-lg'
                     }`}
                   >
-                    {z.title}
+                    {i === active && (
+                      <motion.span layoutId="powerDot" className="absolute left-2 top-1/2 -translate-y-1/2 w-1.5 h-1.5 rounded-full bg-white shadow-[0_0_8px_rgba(255,255,255,.9)]" />
+                    )}
+                    <span className={i === active ? 'pl-3.5 block transition-all' : 'block'}>{z.title}</span>
                   </button>
                 ))}
               </div>
 
-              {/* Active service detail */}
+              {/* Active service detail — premium card */}
               <AnimatePresence mode="wait">
                 <motion.div key={active} initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -12 }}
                   transition={{ duration: 0.3 }}
-                  className="bg-white/[.03] border border-white/[.06] rounded-2xl p-6 md:p-8"
+                  className="relative bg-gradient-to-b from-white/[.06] to-white/[.02] border border-white/[.1] rounded-2xl p-6 md:p-8 shadow-[0_24px_60px_-24px_rgba(0,0,0,0.9)] overflow-hidden"
                 >
-                  <div className="flex items-center gap-3 mb-4">
-                    <div className="w-2.5 h-2.5 rounded-full bg-brand-red shadow-[0_0_10px_rgba(220,38,38,.5)]" />
-                    <p className="text-brand-red text-xs font-semibold tracking-[.15em] uppercase">Zone {active + 1} of {zones.length}</p>
+                  <div className="absolute -top-16 -right-16 w-40 h-40 rounded-full bg-brand-red/15 blur-3xl pointer-events-none" />
+                  <div className="relative">
+                    <div className="flex items-center gap-3 mb-4">
+                      <div className="w-2.5 h-2.5 rounded-full bg-brand-red shadow-[0_0_12px_rgba(220,38,38,.7)] animate-pulse" />
+                      <p className="text-brand-red text-xs font-semibold tracking-[.15em] uppercase">Powered Zone {active + 1} of {zones.length}</p>
+                    </div>
+                    <h3 className="font-display text-2xl md:text-3xl font-extrabold text-white mb-3">{zones[active].title}</h3>
+                    <p className="text-slate-400 text-base leading-relaxed mb-6">{zones[active].desc}</p>
+
+                    <p className="text-[11px] font-semibold tracking-[.18em] uppercase text-slate-500 mb-3">What&rsquo;s Included</p>
+                    <ul className="space-y-2.5 mb-7">
+                      {zones[active].includes.map((item, j) => (
+                        <motion.li key={item} initial={{ opacity: 0, x: -8 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.12 + j * 0.06 }}
+                          className="flex items-center gap-3 text-slate-200 text-[15px]">
+                          <CheckCircle2 className="w-[18px] h-[18px] text-brand-red flex-none" />
+                          {item}
+                        </motion.li>
+                      ))}
+                    </ul>
+
+                    <Link to="/contact"
+                      className="group inline-flex items-center gap-2.5 bg-brand-red hover:bg-brand-red-hover text-white px-6 py-3.5 rounded-xl font-bold text-[15px] transition-all shadow-[0_10px_36px_-10px_rgba(226,32,32,.7)] hover:shadow-[0_14px_44px_-8px_rgba(226,32,38,.85)]">
+                      {zones[active].cta}
+                      <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+                    </Link>
                   </div>
-                  <h3 className="font-display text-2xl md:text-3xl font-extrabold text-white mb-3">{zones[active].title}</h3>
-                  <p className="text-slate-400 text-base leading-relaxed">{zones[active].desc}</p>
                 </motion.div>
               </AnimatePresence>
             </div>
