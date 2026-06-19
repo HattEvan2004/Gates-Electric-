@@ -1,114 +1,121 @@
-import React, { useState } from 'react';
-import { Menu, X } from 'lucide-react';
+import { useState, useEffect } from 'react';
+import { Menu, X, Phone } from 'lucide-react';
 
 export default function Header() {
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [open, setOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
 
-  const [imageError, setImageError] = useState(false);
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 60);
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
+
+  const nav = [
+    { label: 'Home', href: '#' },
+    { label: 'Services', href: '#services' },
+    { label: 'About', href: '#about' },
+    { label: 'Contact', href: '#contact' },
+  ];
 
   return (
-    <header className="sticky top-0 z-50 bg-white border-b border-slate-200 shadow-sm">
+    <header
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
+        scrolled
+          ? 'bg-white/95 backdrop-blur-md shadow-lg border-b border-slate-200/60'
+          : 'bg-transparent'
+      }`}
+    >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-24">
-          
-          {/* Logo Section */}
-          <div className="flex-shrink-0 flex items-center">
-            <a href="#" className="flex items-center">
-              {!imageError ? (
-                <img 
-                  src="/logo.png" 
-                  alt="Gates Electric Ltd. Logo" 
-                  className="h-24 w-auto object-contain"
-                  onError={() => setImageError(true)}
-                />
-              ) : (
-                <div className="flex flex-col items-center">
-                  <span className="text-3xl font-bold font-serif tracking-widest text-black leading-none">GATES</span>
-                  <div className="flex items-center gap-1">
-                    <span className="text-2xl font-serif text-slate-700 leading-none">ELEC</span>
-                    <span className="text-brand-red text-xl leading-none px-1">💡</span>
-                    <span className="text-2xl font-serif text-slate-700 leading-none">TRIC</span>
-                  </div>
-                  <div className="bg-brand-red text-white text-[0.6rem] font-bold px-3 py-0.5 mt-1 tracking-widest w-full text-center uppercase">
-                    Residential & Commercial
-                  </div>
-                </div>
-              )}
-            </a>
-          </div>
+        <div className="flex items-center justify-between h-20 lg:h-24">
+          {/* Logo */}
+          <a href="#" className="flex-shrink-0">
+            <img
+              src="/logo.png"
+              alt="Gates Electric Ltd."
+              className={`h-16 lg:h-20 w-auto object-contain transition-all duration-500 ${
+                scrolled ? '' : 'brightness-0 invert'
+              }`}
+            />
+          </a>
 
-          {/* Desktop Navigation */}
-          <nav className="hidden md:flex space-x-8">
-            <a href="#" className="text-slate-700 hover:text-brand-red font-medium transition-colors">Home</a>
-            <a href="#services" className="text-slate-700 hover:text-brand-red font-medium transition-colors">Services</a>
-            <a href="#about" className="text-slate-700 hover:text-brand-red font-medium transition-colors">About</a>
-            <a href="#contact" className="text-slate-700 hover:text-brand-red font-medium transition-colors">Contact</a>
+          {/* Desktop nav */}
+          <nav className="hidden lg:flex items-center gap-10">
+            {nav.map((item) => (
+              <a
+                key={item.label}
+                href={item.href}
+                className={`text-sm font-medium tracking-wide uppercase transition-colors duration-300 ${
+                  scrolled
+                    ? 'text-slate-700 hover:text-brand-red'
+                    : 'text-white/80 hover:text-white'
+                }`}
+              >
+                {item.label}
+              </a>
+            ))}
           </nav>
 
           {/* Desktop CTA */}
-          <div className="hidden md:flex items-center">
-            <a 
-              href="#contact" 
-              className="bg-brand-red hover:bg-brand-red-hover text-white px-6 py-2.5 rounded-md font-medium transition-colors shadow-sm"
+          <div className="hidden lg:flex items-center gap-5">
+            <a
+              href="tel:9022770458"
+              className={`flex items-center gap-2 text-sm font-semibold transition-colors ${
+                scrolled ? 'text-slate-800' : 'text-white'
+              }`}
             >
-              Get a Free Quote
+              <Phone className="w-4 h-4" />
+              (902) 277-0458
+            </a>
+            <a
+              href="#contact"
+              className="relative bg-brand-red hover:bg-brand-red-hover text-white px-7 py-3 rounded-lg font-semibold text-sm tracking-wide transition-all shadow-lg shadow-red-600/20 hover:shadow-red-600/40 pulse-ring"
+            >
+              Free Quote
             </a>
           </div>
 
-          {/* Mobile menu button */}
-          <div className="md:hidden flex items-center">
-            <button
-              type="button"
-              className="text-slate-700 hover:text-brand-red focus:outline-none"
-              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            >
-              {isMobileMenuOpen ? (
-                <X className="h-7 w-7" aria-hidden="true" />
-              ) : (
-                <Menu className="h-7 w-7" aria-hidden="true" />
-              )}
-            </button>
-          </div>
+          {/* Mobile menu toggle */}
+          <button
+            className="lg:hidden"
+            onClick={() => setOpen(!open)}
+            aria-label="Toggle menu"
+          >
+            {open ? (
+              <X className={`w-7 h-7 ${scrolled ? 'text-slate-800' : 'text-white'}`} />
+            ) : (
+              <Menu className={`w-7 h-7 ${scrolled ? 'text-slate-800' : 'text-white'}`} />
+            )}
+          </button>
         </div>
       </div>
 
-      {/* Mobile Menu */}
-      {isMobileMenuOpen && (
-        <div className="md:hidden border-t border-slate-200 bg-slate-50 absolute w-full shadow-lg">
-          <div className="px-4 pt-2 pb-6 space-y-1 sm:px-3">
-            <a 
-              href="#" 
-              className="block px-3 py-3 text-base font-medium text-slate-800 hover:text-brand-red hover:bg-slate-100 rounded-md"
-              onClick={() => setIsMobileMenuOpen(false)}
-            >
-              Home
-            </a>
-            <a 
-              href="#services" 
-              className="block px-3 py-3 text-base font-medium text-slate-800 hover:text-brand-red hover:bg-slate-100 rounded-md"
-              onClick={() => setIsMobileMenuOpen(false)}
-            >
-              Services
-            </a>
-            <a 
-              href="#about" 
-              className="block px-3 py-3 text-base font-medium text-slate-800 hover:text-brand-red hover:bg-slate-100 rounded-md"
-              onClick={() => setIsMobileMenuOpen(false)}
-            >
-              About
-            </a>
-            <a 
-              href="#contact" 
-              className="block px-3 py-3 text-base font-medium text-slate-800 hover:text-brand-red hover:bg-slate-100 rounded-md"
-              onClick={() => setIsMobileMenuOpen(false)}
-            >
-              Contact
-            </a>
-            <div className="mt-4 px-3">
-              <a 
-                href="#contact" 
-                className="block w-full text-center bg-brand-red hover:bg-brand-red-hover text-white px-5 py-3 rounded-md font-medium shadow-sm"
-                onClick={() => setIsMobileMenuOpen(false)}
+      {/* Mobile menu */}
+      {open && (
+        <div className="lg:hidden bg-white border-t border-slate-100 shadow-2xl">
+          <div className="px-6 py-6 space-y-1">
+            {nav.map((item) => (
+              <a
+                key={item.label}
+                href={item.href}
+                onClick={() => setOpen(false)}
+                className="block py-3 text-lg font-medium text-slate-800 hover:text-brand-red transition-colors"
+              >
+                {item.label}
+              </a>
+            ))}
+            <div className="pt-4 border-t border-slate-100 mt-4 space-y-3">
+              <a
+                href="tel:9022770458"
+                className="flex items-center gap-2 text-slate-700 font-semibold"
+              >
+                <Phone className="w-5 h-5" />
+                (902) 277-0458
+              </a>
+              <a
+                href="#contact"
+                onClick={() => setOpen(false)}
+                className="block text-center bg-brand-red text-white py-3.5 rounded-lg font-semibold shadow-lg"
               >
                 Get a Free Quote
               </a>
