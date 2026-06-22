@@ -54,7 +54,7 @@ export default function Home() {
               transition={{ duration: 0.7, delay: 0.3 }}
               className="font-display font-extrabold tracking-tight text-white mb-5 md:mb-7 text-[clamp(2.6rem,11vw,3.25rem)] leading-[1.02] md:text-[clamp(2.05rem,7vw,5rem)] md:leading-[1.05]"
             >
-              Powering Chester Homes &amp; Businesses With{' '}
+              Powering Homes &amp; Businesses With{' '}
               <span className="text-brand-red">Precision.</span>
             </motion.h1>
 
